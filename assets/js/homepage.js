@@ -3,9 +3,29 @@ var getUserRepos = function(user) {
 
   fetch(apiUrl).then(function(response) {
     response.json().then(function(data) {
-      console.log(data);
+      displayRepos(data, user);
     });
   });
 };
+var userFormEl = document.querySelector("#user-form");
+var nameInputEl = document.querySelector("#username");
+
+var formSubmitHandler = function(event) {
+  event.preventDefault();
+  var username = nameInputEl.value.trim();
+
+if (username) {
+  getUserRepos(username);
+  nameInputEl.value = "";
+} else {
+  alert("Please enter a GitHub username");
+}
+  console.log(event);
+};
+
+var displayRepos = function(repos, searchTerm){
+  console.log(repos);
+  console.log(searchTerm);
+};
   
-  getUserRepos("Microsoft");
+userFormEl.addEventListener("submit", formSubmitHandler);
